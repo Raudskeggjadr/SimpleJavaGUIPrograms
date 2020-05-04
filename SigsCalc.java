@@ -11,7 +11,7 @@ public class SigsCalc {
 		
 		SigsCalcWindow window = new SigsCalcWindow();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize(500, 100);
+		window.setSize(400, 400);
 		window.setVisible(true);
 
 	}
