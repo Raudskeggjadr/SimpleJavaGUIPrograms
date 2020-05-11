@@ -5,6 +5,9 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 public class SigsCalcWindow extends JFrame {
@@ -19,6 +22,43 @@ public class SigsCalcWindow extends JFrame {
 		//Layout setting
 		setLayout(new GridBagLayout());
 		
+		//Drop down menu -----IN JAVA IT'S JUST CALLED MENU----- settings
+		JMenuBar dropDownMenu = new JMenuBar();
+		JMenu menu = new JMenu("File");
+		JMenuItem itemopen = new JMenuItem("Open");
+		JMenuItem itemsave = new JMenuItem("Save");
+		JMenuItem itemsaveas = new JMenuItem("Save as...");
+		JMenuItem itemclose = new JMenuItem("Exit");
+		menu.add(itemopen);
+		menu.add(itemsave);
+		menu.add(itemsaveas);
+		menu.add(itemclose);
+		dropDownMenu.add(menu);
+		Font ff = new Font("Helvetica", Font.PLAIN, 18);
+		menu.setForeground(Color.ORANGE);
+		dropDownMenu.setBackground(Color.BLACK);
+		menu.setBackground(Color.BLACK);
+		itemopen.setBackground(Color.BLACK);
+		itemopen.setForeground(Color.ORANGE);
+		itemopen.setFont(ff);
+		itemsave.setBackground(Color.BLACK);
+		itemsave.setForeground(Color.ORANGE);
+		itemsave.setFont(ff);
+		itemsaveas.setBackground(Color.BLACK);
+		itemsaveas.setForeground(Color.ORANGE);
+		itemsaveas.setFont(ff);
+		itemclose.setBackground(Color.BLACK);
+		itemclose.setForeground(Color.ORANGE);
+		itemclose.setFont(ff);
+		menu.setFont(ff);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+		gbc.weighty = 0.5;
+		gbc.gridwidth = 4;
+		gbc.fill = GridBagConstraints.BOTH;
+		add(dropDownMenu, gbc);
+		
 		//Number field settings
 		JTextField numbersField = new JTextField("0", 50);
 		Font f = new Font("Helvetica", Font.PLAIN, 56);
@@ -28,7 +68,7 @@ public class SigsCalcWindow extends JFrame {
 		numbersField.setHorizontalAlignment(JTextField.RIGHT);
 		numbersField.setEditable(false);
 		gbc.gridx = 0;
-		gbc.gridy = 0;
+		gbc.gridy = 1;
 		gbc.weightx = 1;
 		gbc.weighty = 1;
 		gbc.gridwidth = 4;
@@ -41,7 +81,7 @@ public class SigsCalcWindow extends JFrame {
 		button1.setBackground(Color.BLACK);
 		button1.setFont(f);
 		gbc.gridx = 0;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button1, gbc);
@@ -50,7 +90,7 @@ public class SigsCalcWindow extends JFrame {
 		button2.setBackground(Color.BLACK);
 		button2.setFont(f);
 		gbc.gridx = 1;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button2, gbc);
@@ -59,7 +99,7 @@ public class SigsCalcWindow extends JFrame {
 		button3.setBackground(Color.BLACK);
 		button3.setFont(f);
 		gbc.gridx = 2;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button3, gbc);
@@ -68,7 +108,7 @@ public class SigsCalcWindow extends JFrame {
 		button4.setBackground(Color.BLACK);
 		button4.setFont(f);
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button4, gbc);
@@ -77,7 +117,7 @@ public class SigsCalcWindow extends JFrame {
 		button5.setBackground(Color.BLACK);
 		button5.setFont(f);
 		gbc.gridx = 1;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button5, gbc);
@@ -86,7 +126,7 @@ public class SigsCalcWindow extends JFrame {
 		button6.setBackground(Color.BLACK);
 		button6.setFont(f);
 		gbc.gridx = 2;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button6, gbc);
@@ -95,7 +135,7 @@ public class SigsCalcWindow extends JFrame {
 		button7.setBackground(Color.BLACK);
 		button7.setFont(f);
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button7, gbc);
@@ -104,7 +144,7 @@ public class SigsCalcWindow extends JFrame {
 		button8.setBackground(Color.BLACK);
 		button8.setFont(f);
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button8, gbc);
@@ -113,7 +153,7 @@ public class SigsCalcWindow extends JFrame {
 		button9.setBackground(Color.BLACK);
 		button9.setFont(f);
 		gbc.gridx = 2;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button9, gbc);
@@ -122,7 +162,7 @@ public class SigsCalcWindow extends JFrame {
 		button0.setBackground(Color.BLACK);
 		button0.setFont(f);
 		gbc.gridx = 1;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(button0, gbc);
@@ -131,7 +171,7 @@ public class SigsCalcWindow extends JFrame {
 		buttonDot.setBackground(Color.BLACK);
 		buttonDot.setFont(f);
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(buttonDot, gbc);
@@ -140,7 +180,7 @@ public class SigsCalcWindow extends JFrame {
 		buttonPlus.setBackground(Color.BLACK);
 		buttonPlus.setFont(f);
 		gbc.gridx = 3;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(buttonPlus, gbc);
@@ -149,7 +189,7 @@ public class SigsCalcWindow extends JFrame {
 		buttonMinus.setBackground(Color.BLACK);
 		buttonMinus.setFont(f);
 		gbc.gridx = 3;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(buttonMinus, gbc);
@@ -158,7 +198,7 @@ public class SigsCalcWindow extends JFrame {
 		buttonMultiplication.setBackground(Color.BLACK);
 		buttonMultiplication.setFont(f);
 		gbc.gridx = 3;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(buttonMultiplication, gbc);
@@ -167,7 +207,7 @@ public class SigsCalcWindow extends JFrame {
 		buttonDivision.setBackground(Color.BLACK);
 		buttonDivision.setFont(f);
 		gbc.gridx = 3;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(buttonDivision, gbc);
@@ -176,7 +216,7 @@ public class SigsCalcWindow extends JFrame {
 		buttonEquals.setBackground(Color.BLACK);
 		buttonEquals.setFont(f);
 		gbc.gridx = 2;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(buttonEquals, gbc);
