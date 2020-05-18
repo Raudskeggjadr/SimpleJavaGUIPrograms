@@ -2,10 +2,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -18,6 +18,7 @@ public class SigsCalcWindow extends JFrame{
     GridBagConstraints gbc = new GridBagConstraints();
     
     private JTextField numbersField;
+    private JMenuItem itemclose;
 
     public SigsCalcWindow() {
 
@@ -27,35 +28,88 @@ public class SigsCalcWindow extends JFrame{
         //Layout setting
         setLayout(new GridBagLayout());
 
-        //Drop down menu -----IN JAVA IT'S JUST CALLED MENU----- settings
+        //Drop down menu -----IN JAVA IT'S JUST CALLED MENU----- settings ----- THIS CODE IS ALSO TOO LONG
         JMenuBar dropDownMenu = new JMenuBar();
+        MouseClass handler = new MouseClass();
+        
         JMenu menu = new JMenu("File");
         JMenuItem itemopen = new JMenuItem("Open");
         JMenuItem itemsave = new JMenuItem("Save");
         JMenuItem itemsaveas = new JMenuItem("Save as...");
-        JMenuItem itemclose = new JMenuItem("Exit");
+        itemclose = new JMenuItem("Exit");
         menu.add(itemopen);
         menu.add(itemsave);
         menu.add(itemsaveas);
         menu.add(itemclose);
         dropDownMenu.add(menu);
+        
+        JMenu menu2 = new JMenu("Edit");
+        JMenuItem itemcopy = new JMenuItem("Copy");
+        JMenuItem itempaste = new JMenuItem("Paste");
+        JMenuItem itemclear = new JMenuItem("Clear");
+        menu2.add(itemcopy);
+        menu2.add(itempaste);
+        menu2.add(itemclear);
+        dropDownMenu.add(menu2);
+        
+        JMenu menu3 = new JMenu("Help");
+        JMenuItem itemhelp = new JMenuItem("Help");
+        JMenuItem itemabout = new JMenuItem("About");
+        menu3.add(itemhelp);
+        menu3.add(itemabout);
+        dropDownMenu.add(menu3);
+        
         Font ff = new Font("Helvetica", Font.PLAIN, 18);
-        menu.setForeground(Color.ORANGE);
         dropDownMenu.setBackground(Color.BLACK);
+        menu.setForeground(Color.ORANGE);
         menu.setBackground(Color.BLACK);
+        menu.setFont(ff);
+        
+        menu2.setForeground(Color.ORANGE);
+        menu2.setBackground(Color.BLACK);
+        menu2.setFont(ff);
+        
+        menu3.setForeground(Color.ORANGE);
+        menu3.setBackground(Color.BLACK);
+        menu3.setFont(ff);
+        
         itemopen.setBackground(Color.BLACK);
         itemopen.setForeground(Color.ORANGE);
         itemopen.setFont(ff);
+        
         itemsave.setBackground(Color.BLACK);
         itemsave.setForeground(Color.ORANGE);
         itemsave.setFont(ff);
+        
         itemsaveas.setBackground(Color.BLACK);
         itemsaveas.setForeground(Color.ORANGE);
         itemsaveas.setFont(ff);
+        
         itemclose.setBackground(Color.BLACK);
         itemclose.setForeground(Color.ORANGE);
         itemclose.setFont(ff);
-        menu.setFont(ff);
+        itemclose.addActionListener(new CloseMouseClass());
+        
+        itemcopy.setBackground(Color.BLACK);
+        itemcopy.setForeground(Color.ORANGE);
+        itemcopy.setFont(ff);
+        
+        itempaste.setBackground(Color.BLACK);
+        itempaste.setForeground(Color.ORANGE);
+        itempaste.setFont(ff);
+        
+        itemclear.setBackground(Color.BLACK);
+        itemclear.setForeground(Color.ORANGE);
+        itemclear.setFont(ff);
+        
+        itemhelp.setBackground(Color.BLACK);
+        itemhelp.setForeground(Color.ORANGE);
+        itemhelp.setFont(ff);
+        
+        itemabout.setBackground(Color.BLACK);
+        itemabout.setForeground(Color.ORANGE);
+        itemabout.setFont(ff);
+        
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
@@ -79,12 +133,8 @@ public class SigsCalcWindow extends JFrame{
         gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.BOTH;
         add(numbersField, gbc);
-        
-        //SigsCalcButtons buttonObject = new SigsCalcButtons();
-        //add(buttonObject, gbc);
 
         //Number and equation buttons and their setting ----- CODE IS TOO LONG -----
-        MouseClass handler = new MouseClass();
         JButton button1 = new JButton("1");
         button1.setForeground(Color.ORANGE);
         button1.setBackground(Color.BLACK);
@@ -272,10 +322,17 @@ public class SigsCalcWindow extends JFrame{
     		JButton b = null;
     		String buttonText = "";
 
-    		if(o instanceof JButton)
+    		if (o instanceof JButton)
     		   b = (JButton)o;
     		   buttonText = b.getText();
-    		   
-    		numbersField.setText(numbersField.getText() + buttonText); 
     	}
     }
+    
+    class CloseMouseClass implements ActionListener {
+  	  public void actionPerformed(ActionEvent e) {
+  		if (e.getActionCommand() == "Exit")
+  			System.exit(0);
+  	  }
+  	}
+
+   }
