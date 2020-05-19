@@ -19,17 +19,23 @@ public class SigsCalcWindow extends JFrame{
     
     private JTextField numbersField;
     private JMenuItem itemclose;
+    private StringBuilder initialNumberField = new StringBuilder();
+    private StringBuilder additionalNumber = new StringBuilder();
+    
     
     //Clear the number field method
-    private int raze_it_to_the_ground() {
-    	numbersField.setText("0");
-    	return 0;
+    private void raze_it_to_the_ground() {
+    	initialNumberField.replace(0, 50, "0");
+		numbersField.setText(initialNumberField.toString());
     	}
 
     public SigsCalcWindow() {
 
         //Title of the window
         super("Welcome to Sig's Calculator - Java Edition!");
+        
+        //String builder responsible for the number field
+        initialNumberField.append("0");
 
         //Layout setting
         setLayout(new GridBagLayout());
@@ -126,7 +132,8 @@ public class SigsCalcWindow extends JFrame{
         add(dropDownMenu, gbc);
 
         //Number field settings
-        numbersField = new JTextField("0", 50);
+        String numberShown = initialNumberField.toString();
+        numbersField = new JTextField(numberShown, 50);
         Font f = new Font("Helvetica", Font.PLAIN, 56);
         numbersField.setForeground(Color.ORANGE);
         numbersField.setBackground(Color.BLACK);
@@ -317,8 +324,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(buttonEquals, gbc);
         buttonEquals.addMouseListener(handler);
-
-    }
+}
 
     //Buttons functionality
     private class MouseClass extends MouseAdapter{
@@ -327,37 +333,51 @@ public class SigsCalcWindow extends JFrame{
 
     		Object o = event.getSource();
     		JButton b = null;
-    		String buttonText = "";
 
     		if(o instanceof JButton)
     		   b = (JButton)o;
-    		   buttonText = b.getText();
+    			String buttonText = b.getText();
     		   
     		 switch(b.getText()) {
     		 case "+":
+    			 initialNumberField.append(buttonText);
+    			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
+    			 System.out.println(additionalNumber.toString());
     			 break;
     		 case "-":
+    			 initialNumberField.append(buttonText);
+    			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
+    			 System.out.println(additionalNumber.toString());
     			 break;
     		 case "*":
+    			 initialNumberField.append(buttonText);
+    			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
+    			 System.out.println(additionalNumber.toString());
     			 break;
     		 case "/":
+    			 initialNumberField.append(buttonText);
+    			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
+    			 System.out.println(additionalNumber.toString());
     			 break;
     		 case "=":
+    			 initialNumberField.append(buttonText);
+    			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
+    			 System.out.println(additionalNumber.toString());
     			 break;
     		default:
-    			numbersField.setText(numbersField.getText() + buttonText);
-    		 }
-    			 
+    			if (initialNumberField.toString() == "0")
+    				initialNumberField.replace(0, 1, buttonText);
+    			//numbersField.setText(numbersField.getText() + buttonText);
+    			initialNumberField.append(buttonText);
+    			numbersField.setText(initialNumberField.toString());
+}}}
 
-    		 
-    	}
-    }
-
+    //Drop down menus functionality
     class CloseMouseClass implements ActionListener {
     	  public void actionPerformed(ActionEvent e) {
     		  switch (e.getActionCommand()) {
@@ -370,5 +390,4 @@ public class SigsCalcWindow extends JFrame{
     		  default:
     			  System.out.println("Unexpected");
     		  }
-    	}}
-}
+}}}
