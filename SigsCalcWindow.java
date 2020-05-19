@@ -135,6 +135,7 @@ public class SigsCalcWindow extends JFrame{
         add(numbersField, gbc);
 
         //Number and equation buttons and their setting ----- CODE IS TOO LONG -----
+        //MouseClass handler = new MouseClass();
         JButton button1 = new JButton("1");
         button1.setForeground(Color.ORANGE);
         button1.setBackground(Color.BLACK);
@@ -167,7 +168,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button3, gbc);
         button3.addMouseListener(handler);
-        
+
         JButton button4 = new JButton("4");
         button4.setForeground(Color.ORANGE);
         button4.setBackground(Color.BLACK);
@@ -178,7 +179,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button4, gbc);
         button4.addMouseListener(handler);
-        
+
         JButton button5 = new JButton("5");
         button5.setForeground(Color.ORANGE);
         button5.setBackground(Color.BLACK);
@@ -189,7 +190,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button5, gbc);
         button5.addMouseListener(handler);
-        
+
         JButton button6 = new JButton("6");
         button6.setForeground(Color.ORANGE);
         button6.setBackground(Color.BLACK);
@@ -200,7 +201,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button6, gbc);
         button6.addMouseListener(handler);
-        
+
         JButton button7 = new JButton("7");
         button7.setForeground(Color.ORANGE);
         button7.setBackground(Color.BLACK);
@@ -211,7 +212,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button7, gbc);
         button7.addMouseListener(handler);
-        
+
         JButton button8 = new JButton("8");
         button8.setForeground(Color.ORANGE);
         button8.setBackground(Color.BLACK);
@@ -222,7 +223,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button8, gbc);
         button8.addMouseListener(handler);
-        
+
         JButton button9 = new JButton("9");
         button9.setForeground(Color.ORANGE);
         button9.setBackground(Color.BLACK);
@@ -233,7 +234,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button9, gbc);
         button9.addMouseListener(handler);
-        
+
         JButton button0 = new JButton("0");
         button0.setForeground(Color.ORANGE);
         button0.setBackground(Color.BLACK);
@@ -244,7 +245,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(button0, gbc);
         button0.addMouseListener(handler);
-        
+
         JButton buttonDot = new JButton(".");
         buttonDot.setForeground(Color.ORANGE);
         buttonDot.setBackground(Color.BLACK);
@@ -255,7 +256,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(buttonDot, gbc);
         buttonDot.addMouseListener(handler);
-        
+
         JButton buttonPlus = new JButton("+");
         buttonPlus.setForeground(Color.ORANGE);
         buttonPlus.setBackground(Color.BLACK);
@@ -266,7 +267,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(buttonPlus, gbc);
         buttonPlus.addMouseListener(handler);
-        
+
         JButton buttonMinus = new JButton("-");
         buttonMinus.setForeground(Color.ORANGE);
         buttonMinus.setBackground(Color.BLACK);
@@ -277,7 +278,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(buttonMinus, gbc);
         buttonMinus.addMouseListener(handler);
-        
+
         JButton buttonMultiplication = new JButton("*");
         buttonMultiplication.setForeground(Color.ORANGE);
         buttonMultiplication.setBackground(Color.BLACK);
@@ -288,7 +289,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(buttonMultiplication, gbc);
         buttonMultiplication.addMouseListener(handler);
-        
+
         JButton buttonDivision = new JButton("/");
         buttonDivision.setForeground(Color.ORANGE);
         buttonDivision.setBackground(Color.BLACK);
@@ -299,7 +300,7 @@ public class SigsCalcWindow extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         add(buttonDivision, gbc);
         buttonDivision.addMouseListener(handler);
-        
+
         JButton buttonEquals = new JButton("=");
         buttonEquals.setForeground(Color.ORANGE);
         buttonEquals.setBackground(Color.BLACK);
@@ -312,27 +313,32 @@ public class SigsCalcWindow extends JFrame{
         buttonEquals.addMouseListener(handler);
 
     }
-    
+
     //Buttons functionality
     private class MouseClass extends MouseAdapter{
-    	
+
     	public void mouseClicked(MouseEvent event) {
-    		
+
     		Object o = event.getSource();
     		JButton b = null;
     		String buttonText = "";
 
-    		if (o instanceof JButton)
+    		if(o instanceof JButton)
     		   b = (JButton)o;
     		   buttonText = b.getText();
+
+    		numbersField.setText(numbersField.getText() + buttonText); 
     	}
     }
-    
-    class CloseMouseClass implements ActionListener {
-  	  public void actionPerformed(ActionEvent e) {
-  		if (e.getActionCommand() == "Exit")
-  			System.exit(0);
-  	  }
-  	}
 
-   }
+    class CloseMouseClass implements ActionListener {
+    	  public void actionPerformed(ActionEvent e) {
+    		  switch (e.getActionCommand()) {
+    		  case "Exit":
+    			  System.exit(0);
+    			  break;
+    		  default:
+    			  System.out.println("Unexpected");
+    		  }
+    	}}
+}
