@@ -19,6 +19,12 @@ public class SigsCalcWindow extends JFrame{
     
     private JTextField numbersField;
     private JMenuItem itemclose;
+    
+    //Clear the number field method
+    private int raze_it_to_the_ground() {
+    	numbersField.setText("0");
+    	return 0;
+    	}
 
     public SigsCalcWindow() {
 
@@ -33,9 +39,9 @@ public class SigsCalcWindow extends JFrame{
         MouseClass handler = new MouseClass();
         
         JMenu menu = new JMenu("File");
-        JMenuItem itemopen = new JMenuItem("Open");
-        JMenuItem itemsave = new JMenuItem("Save");
-        JMenuItem itemsaveas = new JMenuItem("Save as...");
+        JMenuItem itemopen = new JMenuItem("Open (WIP)");
+        JMenuItem itemsave = new JMenuItem("Save (WIP)");
+        JMenuItem itemsaveas = new JMenuItem("Save as... (WIP)");
         itemclose = new JMenuItem("Exit");
         menu.add(itemopen);
         menu.add(itemsave);
@@ -44,8 +50,8 @@ public class SigsCalcWindow extends JFrame{
         dropDownMenu.add(menu);
         
         JMenu menu2 = new JMenu("Edit");
-        JMenuItem itemcopy = new JMenuItem("Copy");
-        JMenuItem itempaste = new JMenuItem("Paste");
+        JMenuItem itemcopy = new JMenuItem("Copy (WIP)");
+        JMenuItem itempaste = new JMenuItem("Paste (WIP)");
         JMenuItem itemclear = new JMenuItem("Clear");
         menu2.add(itemcopy);
         menu2.add(itempaste);
@@ -53,8 +59,8 @@ public class SigsCalcWindow extends JFrame{
         dropDownMenu.add(menu2);
         
         JMenu menu3 = new JMenu("Help");
-        JMenuItem itemhelp = new JMenuItem("Help");
-        JMenuItem itemabout = new JMenuItem("About");
+        JMenuItem itemhelp = new JMenuItem("Help (WIP)");
+        JMenuItem itemabout = new JMenuItem("About (WIP)");
         menu3.add(itemhelp);
         menu3.add(itemabout);
         dropDownMenu.add(menu3);
@@ -101,6 +107,7 @@ public class SigsCalcWindow extends JFrame{
         itemclear.setBackground(Color.BLACK);
         itemclear.setForeground(Color.ORANGE);
         itemclear.setFont(ff);
+        itemclear.addActionListener(new CloseMouseClass());
         
         itemhelp.setBackground(Color.BLACK);
         itemhelp.setForeground(Color.ORANGE);
@@ -135,7 +142,6 @@ public class SigsCalcWindow extends JFrame{
         add(numbersField, gbc);
 
         //Number and equation buttons and their setting ----- CODE IS TOO LONG -----
-        //MouseClass handler = new MouseClass();
         JButton button1 = new JButton("1");
         button1.setForeground(Color.ORANGE);
         button1.setBackground(Color.BLACK);
@@ -326,8 +332,29 @@ public class SigsCalcWindow extends JFrame{
     		if(o instanceof JButton)
     		   b = (JButton)o;
     		   buttonText = b.getText();
+    		   
+    		 switch(b.getText()) {
+    		 case "+":
+    			 raze_it_to_the_ground();
+    			 break;
+    		 case "-":
+    			 raze_it_to_the_ground();
+    			 break;
+    		 case "*":
+    			 raze_it_to_the_ground();
+    			 break;
+    		 case "/":
+    			 raze_it_to_the_ground();
+    			 break;
+    		 case "=":
+    			 raze_it_to_the_ground();
+    			 break;
+    		default:
+    			numbersField.setText(numbersField.getText() + buttonText);
+    		 }
+    			 
 
-    		numbersField.setText(numbersField.getText() + buttonText); 
+    		 
     	}
     }
 
@@ -336,6 +363,9 @@ public class SigsCalcWindow extends JFrame{
     		  switch (e.getActionCommand()) {
     		  case "Exit":
     			  System.exit(0);
+    			  break;
+    		  case "Clear":
+    			  raze_it_to_the_ground();
     			  break;
     		  default:
     			  System.out.println("Unexpected");
