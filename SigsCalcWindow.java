@@ -7,18 +7,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.File;
 import java.io.IOException;
+import java.util.Formatter;
 
 public class SigsCalcWindow extends JFrame{
 
@@ -54,7 +58,7 @@ public class SigsCalcWindow extends JFrame{
         JMenu menu = new JMenu("File");
         JMenuItem itemopen = new JMenuItem("Open (WIP)");
         JMenuItem itemsave = new JMenuItem("Save (WIP)");
-        JMenuItem itemsaveas = new JMenuItem("Save as... (WIP)");
+        JMenuItem itemsaveas = new JMenuItem("Save as...");
         itemclose = new JMenuItem("Exit");
         menu.add(itemopen);
         menu.add(itemsave);
@@ -64,7 +68,7 @@ public class SigsCalcWindow extends JFrame{
         
         JMenu menu2 = new JMenu("Edit");
         JMenuItem itemcopy = new JMenuItem("Copy");
-        JMenuItem itempaste = new JMenuItem("Paste (WIP)");
+        JMenuItem itempaste = new JMenuItem("Paste");
         JMenuItem itemclear = new JMenuItem("Clear");
         menu2.add(itemcopy);
         menu2.add(itempaste);
@@ -103,6 +107,7 @@ public class SigsCalcWindow extends JFrame{
         itemsaveas.setBackground(Color.BLACK);
         itemsaveas.setForeground(Color.ORANGE);
         itemsaveas.setFont(ff);
+        itemsaveas.addActionListener(new CloseMouseClass());
         
         itemclose.setBackground(Color.BLACK);
         itemclose.setForeground(Color.ORANGE);
@@ -117,6 +122,7 @@ public class SigsCalcWindow extends JFrame{
         itempaste.setBackground(Color.BLACK);
         itempaste.setForeground(Color.ORANGE);
         itempaste.setFont(ff);
+        itempaste.addActionListener(new CloseMouseClass());
         
         itemclear.setBackground(Color.BLACK);
         itemclear.setForeground(Color.ORANGE);
@@ -380,7 +386,6 @@ public class SigsCalcWindow extends JFrame{
     		default:
     			if (initialNumberField.toString().equals("0"))
     				initialNumberField.delete(0, 1);
-    			//numbersField.setText(numbersField.getText() + buttonText);
     			initialNumberField.append(buttonText);
     			numbersField.setText(initialNumberField.toString());
 }}}
@@ -388,14 +393,46 @@ public class SigsCalcWindow extends JFrame{
     //Drop down menus functionality
     class CloseMouseClass implements ActionListener {
     	  public void actionPerformed(ActionEvent e) {
+    		  JFrame saveOrOpenDialog = new JFrame();
+    		  Clipboard clipBoardContent = Toolkit.getDefaultToolkit().getSystemClipboard();
     		  switch (e.getActionCommand()) {
+    		  //Path defaults to the desktop, gotta work on more exception, easy to crash the program
+    		  case "Save as...":
+    			  JFileChooser saveNewFile = new JFileChooser();
+    			  saveNewFile.setDialogTitle("Save Your Number To...");
+    			  saveNewFile.setDialogType(JFileChooser.SAVE_DIALOG);
+    			  saveNewFile.setSelectedFile(new File("Your Numbers.txt"));
+    			  saveNewFile.setFileFilter(new FileNameExtensionFilter("TXT Files", "txt"));
+    			  saveNewFile.setCurrentDirectory(new File(System.getProperty("user.home") +
+    					  System.getProperty("file.separator") + "Desktop"));
+    			  if (saveNewFile.showSaveDialog(saveOrOpenDialog) == JFileChooser.APPROVE_OPTION) {
+    				  try { 
+    					  Formatter f = new Formatter(saveNewFile.getSelectedFile().getAbsolutePath());
+    					  f.format("%s", numbersField.getText());
+    					  f.close();
+    				  } catch (Exception ee) {
+    					  System.out.println("Error while saving a file.");
+    				  }
+    			  }
     		  case "Exit":
     			  System.exit(0);
     			  break;
     		  case "Copy":
     			  StringSelection copyThisToClipBoard = new StringSelection(numbersField.getText());
-    			  Clipboard clipBoardContent = Toolkit.getDefaultToolkit().getSystemClipboard();
     			  clipBoardContent.setContents(copyThisToClipBoard, copyThisToClipBoard);
+    			  break;
+    		  case "Paste":
+    			  try {
+    				  Transferable copyThisFromClipboard = clipBoardContent.getContents(null);
+    				  if (copyThisFromClipboard.isDataFlavorSupported(DataFlavor.stringFlavor))
+    					  if (initialNumberField.toString().equals("0"))
+    		    				initialNumberField.delete(0, 1);
+    		    			initialNumberField.append(copyThisFromClipboard.getTransferData(DataFlavor.stringFlavor));
+    		    			numbersField.setText(initialNumberField.toString());
+    			  }
+    				  catch (UnsupportedFlavorException | IOException ex) {
+    					  System.out.println("Error while pasting from Clipboard");
+    			  }
     			  break;
     		  case "Clear":
     			  raze_it_to_the_ground();
