@@ -12,6 +12,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 
 public class SigsCalcWindow extends JFrame{
 
@@ -56,7 +63,7 @@ public class SigsCalcWindow extends JFrame{
         dropDownMenu.add(menu);
         
         JMenu menu2 = new JMenu("Edit");
-        JMenuItem itemcopy = new JMenuItem("Copy (WIP)");
+        JMenuItem itemcopy = new JMenuItem("Copy");
         JMenuItem itempaste = new JMenuItem("Paste (WIP)");
         JMenuItem itemclear = new JMenuItem("Clear");
         menu2.add(itemcopy);
@@ -105,6 +112,7 @@ public class SigsCalcWindow extends JFrame{
         itemcopy.setBackground(Color.BLACK);
         itemcopy.setForeground(Color.ORANGE);
         itemcopy.setFont(ff);
+        itemcopy.addActionListener(new CloseMouseClass());
         
         itempaste.setBackground(Color.BLACK);
         itempaste.setForeground(Color.ORANGE);
@@ -370,8 +378,8 @@ public class SigsCalcWindow extends JFrame{
     			 System.out.println(additionalNumber.toString());
     			 break;
     		default:
-    			if (initialNumberField.toString() == "0")
-    				initialNumberField.replace(0, 1, buttonText);
+    			if (initialNumberField.toString().equals("0"))
+    				initialNumberField.delete(0, 1);
     			//numbersField.setText(numbersField.getText() + buttonText);
     			initialNumberField.append(buttonText);
     			numbersField.setText(initialNumberField.toString());
@@ -383,6 +391,11 @@ public class SigsCalcWindow extends JFrame{
     		  switch (e.getActionCommand()) {
     		  case "Exit":
     			  System.exit(0);
+    			  break;
+    		  case "Copy":
+    			  StringSelection copyThisToClipBoard = new StringSelection(numbersField.getText());
+    			  Clipboard clipBoardContent = Toolkit.getDefaultToolkit().getSystemClipboard();
+    			  clipBoardContent.setContents(copyThisToClipBoard, copyThisToClipBoard);
     			  break;
     		  case "Clear":
     			  raze_it_to_the_ground();
