@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.util.Scanner;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -23,6 +24,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Formatter;
+
 
 public class SigsCalcWindow extends JFrame{
 
@@ -56,7 +58,7 @@ public class SigsCalcWindow extends JFrame{
         MouseClass handler = new MouseClass();
         
         JMenu menu = new JMenu("File");
-        JMenuItem itemopen = new JMenuItem("Open (WIP)");
+        JMenuItem itemopen = new JMenuItem("Open");
         JMenuItem itemsave = new JMenuItem("Save (WIP)");
         JMenuItem itemsaveas = new JMenuItem("Save as...");
         itemclose = new JMenuItem("Exit");
@@ -99,6 +101,7 @@ public class SigsCalcWindow extends JFrame{
         itemopen.setBackground(Color.BLACK);
         itemopen.setForeground(Color.ORANGE);
         itemopen.setFont(ff);
+        itemopen.addActionListener(new CloseMouseClass());
         
         itemsave.setBackground(Color.BLACK);
         itemsave.setForeground(Color.ORANGE);
@@ -397,6 +400,26 @@ public class SigsCalcWindow extends JFrame{
     		  Clipboard clipBoardContent = Toolkit.getDefaultToolkit().getSystemClipboard();
     		  switch (e.getActionCommand()) {
     		  //Path defaults to the desktop, gotta work on more exception, easy to crash the program
+    		  case "Open":
+    			  JFileChooser openFile = new JFileChooser();
+    			  openFile.setDialogTitle("Open a text file with your naumber");
+    			  openFile.setDialogType(JFileChooser.OPEN_DIALOG);
+    			  openFile.setFileFilter(new FileNameExtensionFilter("TXT Files", "txt"));
+    			  openFile.setCurrentDirectory(new File(System.getProperty("user.home") +
+    					  System.getProperty("file.separator") + "Desktop"));
+    			  if (openFile.showOpenDialog(saveOrOpenDialog) == JFileChooser.APPROVE_OPTION) {
+    				  try { 
+    					  Scanner ff = new Scanner(new File(openFile.getSelectedFile().getAbsolutePath()));
+    					  initialNumberField.delete(0, 50);
+    					  initialNumberField.append(ff.next());
+    					  numbersField.setText(initialNumberField.toString());
+    					  ff.close();
+    				  } catch (Exception ee) {
+    					  System.out.println("Error while opening a file.");
+    				  }
+    			  }
+    			  break;
+    			  
     		  case "Save as...":
     			  JFileChooser saveNewFile = new JFileChooser();
     			  saveNewFile.setDialogTitle("Save Your Number To...");
@@ -410,10 +433,11 @@ public class SigsCalcWindow extends JFrame{
     					  Formatter f = new Formatter(saveNewFile.getSelectedFile().getAbsolutePath());
     					  f.format("%s", numbersField.getText());
     					  f.close();
-    				  } catch (Exception ee) {
+    				  } catch (Exception eee) {
     					  System.out.println("Error while saving a file.");
     				  }
     			  }
+    			  break;
     		  case "Exit":
     			  System.exit(0);
     			  break;
@@ -426,7 +450,7 @@ public class SigsCalcWindow extends JFrame{
     				  Transferable copyThisFromClipboard = clipBoardContent.getContents(null);
     				  if (copyThisFromClipboard.isDataFlavorSupported(DataFlavor.stringFlavor))
     					  if (initialNumberField.toString().equals("0"))
-    		    				initialNumberField.delete(0, 1);
+    		    				initialNumberField.delete(0, 50);
     		    			initialNumberField.append(copyThisFromClipboard.getTransferData(DataFlavor.stringFlavor));
     		    			numbersField.setText(initialNumberField.toString());
     			  }
