@@ -4,6 +4,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -12,7 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.util.Scanner;
 import java.awt.Toolkit;
@@ -26,7 +30,7 @@ import java.io.IOException;
 import java.util.Formatter;
 
 
-public class SigsCalcWindow extends JFrame{
+public class SigsCalcWindow extends JFrame implements KeyListener {
 
     GridBagConstraints gbc = new GridBagConstraints();
     
@@ -46,6 +50,8 @@ public class SigsCalcWindow extends JFrame{
 
         //Title of the window
         super("Welcome to Sig's Calculator - Java Edition!");
+        
+        //addKeyListener(this);
         
         //String builder responsible for the number field
         initialNumberField.append("0");
@@ -78,8 +84,8 @@ public class SigsCalcWindow extends JFrame{
         dropDownMenu.add(menu2);
         
         JMenu menu3 = new JMenu("Help");
-        JMenuItem itemhelp = new JMenuItem("Help (WIP)");
-        JMenuItem itemabout = new JMenuItem("About (WIP)");
+        JMenuItem itemhelp = new JMenuItem("Help");
+        JMenuItem itemabout = new JMenuItem("About");
         menu3.add(itemhelp);
         menu3.add(itemabout);
         dropDownMenu.add(menu3);
@@ -135,10 +141,12 @@ public class SigsCalcWindow extends JFrame{
         itemhelp.setBackground(Color.BLACK);
         itemhelp.setForeground(Color.ORANGE);
         itemhelp.setFont(ff);
+        itemhelp.addActionListener(new CloseMouseClass());
         
         itemabout.setBackground(Color.BLACK);
         itemabout.setForeground(Color.ORANGE);
         itemabout.setFont(ff);
+        itemabout.addActionListener(new CloseMouseClass());
         
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -151,6 +159,7 @@ public class SigsCalcWindow extends JFrame{
         //Number field settings
         String numberShown = initialNumberField.toString();
         numbersField = new JTextField(numberShown, 50);
+        numbersField.addKeyListener(this);
         Font f = new Font("Helvetica", Font.PLAIN, 56);
         numbersField.setForeground(Color.ORANGE);
         numbersField.setBackground(Color.BLACK);
@@ -398,6 +407,11 @@ public class SigsCalcWindow extends JFrame{
     	  public void actionPerformed(ActionEvent e) {
     		  JFrame saveOrOpenDialog = new JFrame();
     		  Clipboard clipBoardContent = Toolkit.getDefaultToolkit().getSystemClipboard();
+    		  UIManager.put("OptionPane.background", Color.DARK_GRAY);
+    		  UIManager.put("Panel.background", Color.BLACK);
+    		  UIManager.put("OptionPane.messageForeground", Color.ORANGE);
+    		  UIManager.put("Button.background", Color.BLACK);
+    		  UIManager.put("Button.foreground", Color.ORANGE);
     		  switch (e.getActionCommand()) {
     		  //Path defaults to the desktop, gotta work on more exception, easy to crash the program
     		  case "Open":
@@ -461,7 +475,95 @@ public class SigsCalcWindow extends JFrame{
     		  case "Clear":
     			  raze_it_to_the_ground();
     			  break;
+    		  case "Help":
+    			  JOptionPane.showMessageDialog(null, "This is a help screen.", "Help", JOptionPane.PLAIN_MESSAGE);
+    			  break;
+    		  case "About":
+    			  JOptionPane.showMessageDialog(null, "Calculator created by Zygmunt Mocek.", "About", JOptionPane.PLAIN_MESSAGE);
+    			  break;
     		  default:
-    			  System.out.println("Unexpected");
+    			  System.out.println("Unexpected (Buttons)");
     		  }
-}}}
+}}
+    
+    @Override
+	public void keyTyped(KeyEvent eee) {
+		eee.consume();
+	}
+    
+    
+    //Key presses funtionalisty -----HAVE TO LOOK FOR A WAY TO STREAMLINE THIS -----
+    @Override
+	public void keyPressed(KeyEvent eee) {
+		switch (eee.getKeyCode()) {
+		case KeyEvent.VK_0:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(0);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_1:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(1);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_2:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(2);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_3:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(3);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_4:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(4);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_5:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(5);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_6:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(6);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_7:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(7);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_8:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(8);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		case KeyEvent.VK_9:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(9);
+			numbersField.setText(initialNumberField.toString());
+			break;
+		default:
+			System.out.println("Unexpexted (key presses)");
+		}
+		eee.consume();
+	}
+
+    @Override
+	public void keyReleased(KeyEvent eee) {
+		eee.consume();
+	}
+}
