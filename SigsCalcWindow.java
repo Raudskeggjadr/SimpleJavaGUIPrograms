@@ -35,7 +35,6 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     GridBagConstraints gbc = new GridBagConstraints();
     
     private JTextField numbersField;
-    private JMenuItem itemclose;
     private StringBuilder initialNumberField = new StringBuilder();
     private StringBuilder additionalNumber = new StringBuilder();
     
@@ -51,28 +50,26 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         //Title of the window
         super("Welcome to Sig's Calculator - Java Edition!");
         
-        //addKeyListener(this);
-        
         //String builder responsible for the number field
         initialNumberField.append("0");
 
         //Layout setting
         setLayout(new GridBagLayout());
 
-        //Drop down menu -----IN JAVA IT'S JUST CALLED MENU----- settings ----- THIS CODE IS ALSO TOO LONG
-        JMenuBar dropDownMenu = new JMenuBar();
+        //Drop down menus -----IN JAVA IT'S JUST CALLED MENU----- settings ----- THIS CODE IS ALSO TOO LONG
+        JMenuBar dropDownMenus = new JMenuBar();
         MouseClass handler = new MouseClass();
         
         JMenu menu = new JMenu("File");
         JMenuItem itemopen = new JMenuItem("Open");
         JMenuItem itemsave = new JMenuItem("Save (WIP)");
         JMenuItem itemsaveas = new JMenuItem("Save as...");
-        itemclose = new JMenuItem("Exit");
+        JMenuItem itemclose = new JMenuItem("Exit");
         menu.add(itemopen);
         menu.add(itemsave);
         menu.add(itemsaveas);
         menu.add(itemclose);
-        dropDownMenu.add(menu);
+        dropDownMenus.add(menu);
         
         JMenu menu2 = new JMenu("Edit");
         JMenuItem itemcopy = new JMenuItem("Copy");
@@ -81,17 +78,17 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         menu2.add(itemcopy);
         menu2.add(itempaste);
         menu2.add(itemclear);
-        dropDownMenu.add(menu2);
+        dropDownMenus.add(menu2);
         
         JMenu menu3 = new JMenu("Help");
         JMenuItem itemhelp = new JMenuItem("Help");
         JMenuItem itemabout = new JMenuItem("About");
         menu3.add(itemhelp);
         menu3.add(itemabout);
-        dropDownMenu.add(menu3);
+        dropDownMenus.add(menu3);
         
         Font ff = new Font("Helvetica", Font.PLAIN, 18);
-        dropDownMenu.setBackground(Color.BLACK);
+        dropDownMenus.setBackground(Color.BLACK);
         menu.setForeground(Color.ORANGE);
         menu.setBackground(Color.BLACK);
         menu.setFont(ff);
@@ -154,7 +151,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         gbc.weighty = 0.5;
         gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.BOTH;
-        add(dropDownMenu, gbc);
+        add(dropDownMenus, gbc);
 
         //Number field settings
         String numberShown = initialNumberField.toString();
@@ -492,7 +489,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 	}
     
     
-    //Key presses funtionalisty -----HAVE TO LOOK FOR A WAY TO STREAMLINE THIS -----
+    //Key presses functionality -----HAVE TO LOOK FOR A WAY TO STREAMLINE THIS -----
     @Override
 	public void keyPressed(KeyEvent eee) {
 		switch (eee.getKeyCode()) {
