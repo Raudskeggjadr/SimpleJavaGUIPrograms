@@ -2,6 +2,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -9,11 +13,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
-public class SigsNote extends JFrame {
+public class SigsNote extends JFrame implements KeyListener, ActionListener {
 	
 	private static GridBagConstraints gbc = new GridBagConstraints();
+	
+	private static JTextArea textField;
 
-	public static void main(String[] args) {
+	public SigsNote() {
 		// TODO Auto-generated method stub
 		
 		//Window's title
@@ -29,7 +35,7 @@ public class SigsNote extends JFrame {
         JMenuItem itemopen = new JMenuItem("Open (WIP)");
         JMenuItem itemsave = new JMenuItem("Save (WIP)");
         JMenuItem itemsaveas = new JMenuItem("Save as... (WIP)");
-        JMenuItem itemclose = new JMenuItem("Exit (WIP)");
+        JMenuItem itemclose = new JMenuItem("Exit");
         menu.add(itemopen);
         menu.add(itemsave);
         menu.add(itemsaveas);
@@ -40,7 +46,7 @@ public class SigsNote extends JFrame {
         JMenuItem itemsearch = new JMenuItem("Search (WIP)");
         JMenuItem itemcopy = new JMenuItem("Copy (WIP)");
         JMenuItem itempaste = new JMenuItem("Paste (WIP)");
-        JMenuItem itemclear = new JMenuItem("Clear (WIP)");
+        JMenuItem itemclear = new JMenuItem("Clear");
         menu2.add(itemsearch);
         menu2.add(itemcopy);
         menu2.add(itempaste);
@@ -83,6 +89,7 @@ public class SigsNote extends JFrame {
         itemclose.setBackground(Color.BLACK);
         itemclose.setForeground(Color.ORANGE);
         itemclose.setFont(ff);
+        itemclose.addActionListener(this);
         
         itemsearch.setBackground(Color.BLACK);
         itemsearch.setForeground(Color.ORANGE);
@@ -99,6 +106,7 @@ public class SigsNote extends JFrame {
         itemclear.setBackground(Color.BLACK);
         itemclear.setForeground(Color.ORANGE);
         itemclear.setFont(ff);
+        itemclear.addActionListener(this);
         
         itemhelp.setBackground(Color.BLACK);
         itemhelp.setForeground(Color.ORANGE);
@@ -117,7 +125,7 @@ public class SigsNote extends JFrame {
         theFrame.add(dropDownMenus, gbc);
         
         //Text field settings
-        JTextArea textField = new JTextArea();
+        textField = new JTextArea();
         Font f = new Font("Helvetica", Font.PLAIN, 56);
         textField.setForeground(Color.ORANGE);
         textField.setBackground(Color.BLACK);
@@ -136,5 +144,54 @@ public class SigsNote extends JFrame {
         theFrame.setVisible(true);  
 
 	}
+	
+	//Drop down menus functionality
+	@Override
+	public void actionPerformed (ActionEvent ee) {
+		
+		switch (ee.getActionCommand()) {
+		case "Exit":
+			System.exit(0);
+			break;
+		case "Clear":
+			int textFieldLenght = textField.getText().length();
+			textField.replaceRange("", 0, textFieldLenght);
+			break;
+		default:
+			System.out.println("Unexpected (drop down menus)");
+		}
+		
+	}
+	
+	//Key presses functionality
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		e.consume();
+	}
 
-}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_ENTER:
+			textField.append("\n");
+			e.consume();
+			break;
+		default:
+			e.consume();
+			break;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		e.consume();
+	}
+
+public static void main(String[] args) {
+	
+	new SigsNote();
+	
+}}
