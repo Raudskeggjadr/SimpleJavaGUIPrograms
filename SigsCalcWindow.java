@@ -479,7 +479,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     			  JOptionPane.showMessageDialog(null, "Calculator created by Zygmunt Mocek.", "About", JOptionPane.PLAIN_MESSAGE);
     			  break;
     		  default:
-    			  System.out.println("Unexpected (Buttons)");
+    			  System.out.println("Unexpected (drop down menus)");
     		  }
 }}
     
@@ -498,65 +498,75 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(0);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_1:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(1);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_2:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(2);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_3:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(3);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_4:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(4);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_5:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(5);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_6:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(6);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_7:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(7);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_8:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(8);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		case KeyEvent.VK_9:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(9);
 			numbersField.setText(initialNumberField.toString());
+			eee.consume();
 			break;
 		default:
 			System.out.println("Unexpexted (key presses)");
+			eee.consume();
 		}
-		eee.consume();
 	}
 
     @Override
