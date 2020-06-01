@@ -17,12 +17,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class SigsNote extends JFrame implements KeyListener, ActionListener {
 	
-	private static GridBagConstraints gbc = new GridBagConstraints();
+	private GridBagConstraints gbc = new GridBagConstraints();
 	
-	private static JTextArea textField;
+	private JTextArea textField;
 
 	public SigsNote() {
 		// TODO Auto-generated method stub
