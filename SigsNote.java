@@ -2,10 +2,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -44,8 +49,8 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
         
         JMenu menu2 = new JMenu("Edit");
         JMenuItem itemsearch = new JMenuItem("Search (WIP)");
-        JMenuItem itemcopy = new JMenuItem("Copy (WIP)");
-        JMenuItem itempaste = new JMenuItem("Paste (WIP)");
+        JMenuItem itemcopy = new JMenuItem("Copy");
+        JMenuItem itempaste = new JMenuItem("Paste");
         JMenuItem itemclear = new JMenuItem("Clear");
         menu2.add(itemsearch);
         menu2.add(itemcopy);
@@ -98,10 +103,12 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
         itemcopy.setBackground(Color.BLACK);
         itemcopy.setForeground(Color.ORANGE);
         itemcopy.setFont(ff);
+        itemcopy.addActionListener(this);
         
         itempaste.setBackground(Color.BLACK);
         itempaste.setForeground(Color.ORANGE);
         itempaste.setFont(ff);
+        itempaste.addActionListener(this);
         
         itemclear.setBackground(Color.BLACK);
         itemclear.setForeground(Color.ORANGE);
@@ -149,12 +156,27 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed (ActionEvent ee) {
 		
+		StringSelection copyThisToClipboard = new StringSelection(textField.getText());
+		int textFieldLenght = textField.getText().length();
+		
 		switch (ee.getActionCommand()) {
 		case "Exit":
 			System.exit(0);
 			break;
+		case "Copy":
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(copyThisToClipboard,
+					copyThisToClipboard);
+			break;
+			//completely replaces old text instead of adding to it
+		case "Paste":
+			try {
+				if (Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null).isDataFlavorSupported(DataFlavor.stringFlavor))
+					textField.append(Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null).getTransferData(DataFlavor.stringFlavor).toString());
+			}
+			catch (UnsupportedFlavorException | IOException ex) {
+				  System.out.println("Error while pasting from Clipboard - bad format");
+			}
 		case "Clear":
-			int textFieldLenght = textField.getText().length();
 			textField.replaceRange("", 0, textFieldLenght);
 			break;
 		default:
