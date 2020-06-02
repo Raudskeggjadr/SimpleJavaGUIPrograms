@@ -11,11 +11,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -179,6 +179,12 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
 			}
 		case "Clear":
 			textField.replaceRange("", 0, textFieldLenght);
+			break;
+		case "Help":
+			JOptionPane.showMessageDialog(null, "This is a help screen.", "Help", JOptionPane.PLAIN_MESSAGE);
+			break;
+		case "About":
+			JOptionPane.showMessageDialog(null, "Notepad created by Zygmunt Mocek.", "About", JOptionPane.PLAIN_MESSAGE);
 			break;
 		default:
 			System.out.println("Unexpected (drop down menus)");
