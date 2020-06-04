@@ -356,12 +356,14 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 
     		Object o = event.getSource();
     		JButton b = null;
+    		Scanner myObj = new Scanner(System.in);
 
     		if(o instanceof JButton)
     		   b = (JButton)o;
     			String buttonText = b.getText();
     		   
-    		 switch(b.getText()) {
+    		//----- THIS WON'T WORK THE WAY I EXPECTED, NEED A DIFFERENT APROACH 
+    		switch(b.getText()) {
     		 case "+":
     			 initialNumberField.append(buttonText);
     			 additionalNumber.append(initialNumberField);
@@ -457,6 +459,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     			  clipBoardContent.setContents(copyThisToClipBoard, copyThisToClipBoard);
     			  break;
     		  case "Paste":
+    			  //Possibility to paste plain old text instead of numbers
     			  try {
     				  Transferable copyThisFromClipboard = clipBoardContent.getContents(null);
     				  if (copyThisFromClipboard.isDataFlavorSupported(DataFlavor.stringFlavor))
@@ -466,7 +469,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     		    			numbersField.setText(initialNumberField.toString());
     			  }
     				  catch (UnsupportedFlavorException | IOException ex) {
-    					  System.out.println("Error while pasting from Clipboard");
+    					  System.out.println("Error while pasting from Clipboard - bad format");
     			  }
     			  break;
     		  case "Clear":
@@ -500,7 +503,21 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 			numbersField.setText(initialNumberField.toString());
 			eee.consume();
 			break;
+		case KeyEvent.VK_NUMPAD0:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(0);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
 		case KeyEvent.VK_1:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(1);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
+		case KeyEvent.VK_NUMPAD1:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(1);
@@ -514,7 +531,21 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 			numbersField.setText(initialNumberField.toString());
 			eee.consume();
 			break;
+		case KeyEvent.VK_NUMPAD2:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(2);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
 		case KeyEvent.VK_3:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(3);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
+		case KeyEvent.VK_NUMPAD3:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(3);
@@ -528,7 +559,21 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 			numbersField.setText(initialNumberField.toString());
 			eee.consume();
 			break;
+		case KeyEvent.VK_NUMPAD4:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(4);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
 		case KeyEvent.VK_5:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(5);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
+		case KeyEvent.VK_NUMPAD5:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(5);
@@ -542,7 +587,21 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 			numbersField.setText(initialNumberField.toString());
 			eee.consume();
 			break;
+		case KeyEvent.VK_NUMPAD6:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(6);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
 		case KeyEvent.VK_7:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(7);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
+		case KeyEvent.VK_NUMPAD7:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(7);
@@ -556,7 +615,21 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 			numbersField.setText(initialNumberField.toString());
 			eee.consume();
 			break;
+		case KeyEvent.VK_NUMPAD8:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(8);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
 		case KeyEvent.VK_9:
+			if (initialNumberField.toString().equals("0"))
+				initialNumberField.delete(0, 1);
+			initialNumberField.append(9);
+			numbersField.setText(initialNumberField.toString());
+			eee.consume();
+			break;
+		case KeyEvent.VK_NUMPAD9:
 			if (initialNumberField.toString().equals("0"))
 				initialNumberField.delete(0, 1);
 			initialNumberField.append(9);
