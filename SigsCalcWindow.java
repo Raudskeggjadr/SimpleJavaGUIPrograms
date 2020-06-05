@@ -34,9 +34,14 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 
     GridBagConstraints gbc = new GridBagConstraints();
     
-    private JTextField numbersField;
-    private StringBuilder initialNumberField = new StringBuilder();
-    private StringBuilder additionalNumber = new StringBuilder();
+    private JTextField numbersField; //This is the value of the text field
+    private StringBuilder initialNumberField = new StringBuilder(); //The first calculations number
+    private StringBuilder additionalNumber = new StringBuilder(); //The second calculations number
+    //Flags made to let the program know what calculation is to be made when pressing "Equals"
+    private boolean isItAddition = false;
+    private boolean isItSubstraction = false;
+    private boolean isItMultiplacation = false;
+    private boolean isItDivision = false;
     
     
     //Clear the number field method
@@ -352,49 +357,93 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     //Buttons functionality
     private class MouseClass extends MouseAdapter{
 
-    	public void mouseClicked(MouseEvent event) {
+		public void mouseClicked(MouseEvent event) {
 
     		Object o = event.getSource();
     		JButton b = null;
-    		Scanner myObj = new Scanner(System.in);
+    		float firstNumber;
+    		float secondNumber;
+    		float theResult;
 
     		if(o instanceof JButton)
     		   b = (JButton)o;
     			String buttonText = b.getText();
     		   
-    		//----- THIS WON'T WORK THE WAY I EXPECTED, NEED A DIFFERENT APROACH 
     		switch(b.getText()) {
     		 case "+":
-    			 initialNumberField.append(buttonText);
     			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
-    			 System.out.println(additionalNumber.toString());
+    			 System.out.println(additionalNumber);
+    			 isItAddition = true;
     			 break;
     		 case "-":
-    			 initialNumberField.append(buttonText);
     			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
-    			 System.out.println(additionalNumber.toString());
+    			 System.out.println(additionalNumber);
+    			 isItSubstraction = true;
     			 break;
     		 case "*":
-    			 initialNumberField.append(buttonText);
     			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
-    			 System.out.println(additionalNumber.toString());
+    			 System.out.println(additionalNumber);
+    			 isItMultiplacation = true;
     			 break;
     		 case "/":
-    			 initialNumberField.append(buttonText);
     			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
-    			 System.out.println(additionalNumber.toString());
+    			 System.out.println(additionalNumber);
+    			 isItDivision = true;
     			 break;
     		 case "=":
-    			 initialNumberField.append(buttonText);
-    			 additionalNumber.append(initialNumberField);
-    			 raze_it_to_the_ground();
-    			 System.out.println(additionalNumber.toString());
+    			 if (isItAddition == true) {
+    				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+    				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+    				 theResult = firstNumber+secondNumber;
+        			 System.out.println(theResult);
+        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        			 numbersField.setText(initialNumberField.toString());
+        			 additionalNumber.replace(0, 50, "");
+        			 isItAddition = false;
+    			 } else if (isItSubstraction == true) {
+    				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+    				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+    				 theResult = firstNumber-secondNumber;
+        			 System.out.println(theResult);
+        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        			 numbersField.setText(initialNumberField.toString());
+        			 additionalNumber.replace(0, 50, "");
+        			 isItSubstraction = false;
+    			 } else if (isItMultiplacation == true) {
+    				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+    				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+    				 theResult = firstNumber*secondNumber;
+        			 System.out.println(theResult);
+        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        			 numbersField.setText(initialNumberField.toString());
+        			 additionalNumber.replace(0, 50, "");
+        			 isItMultiplacation = false;
+    			 } else if (isItDivision == true) {
+    				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+    				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+    				 theResult = firstNumber/secondNumber;
+        			 System.out.println(theResult);
+        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        			 numbersField.setText(initialNumberField.toString());
+        			 additionalNumber.replace(0, 50, "");
+        			 isItDivision = false;
+    			 } else {
+        			 System.out.println("Problem with the result.");
+    			 }
     			 break;
-    		default:
+    		 //Not perfect but stops unnecessary dots
+    		 case ".":
+    			 if (initialNumberField.toString().contains(".")) {
+    				 System.out.println("One dot is enough.");
+    				 int theLenght = initialNumberField.toString().length();
+    				 initialNumberField.delete(theLenght-1, theLenght);
+    	    		 numbersField.setText(initialNumberField.toString());
+    			 }
+    		 default:
     			if (initialNumberField.toString().equals("0"))
     				initialNumberField.delete(0, 1);
     			initialNumberField.append(buttonText);
@@ -413,6 +462,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     		  UIManager.put("Button.foreground", Color.ORANGE);
     		  switch (e.getActionCommand()) {
     		  //Path defaults to the desktop, gotta work on more exception, easy to crash the program
+			  //----- SECURITY RISK ----- Possibility to open plain old text instead of numbers
     		  case "Open":
     			  JFileChooser openFile = new JFileChooser();
     			  openFile.setDialogTitle("Open a text file with your naumber");
@@ -459,7 +509,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     			  clipBoardContent.setContents(copyThisToClipBoard, copyThisToClipBoard);
     			  break;
     		  case "Paste":
-    			  //Possibility to paste plain old text instead of numbers
+    			  //----- SECURITY RISK ----- Possibility to paste plain old text instead of numbers
     			  try {
     				  Transferable copyThisFromClipboard = clipBoardContent.getContents(null);
     				  if (copyThisFromClipboard.isDataFlavorSupported(DataFlavor.stringFlavor))
