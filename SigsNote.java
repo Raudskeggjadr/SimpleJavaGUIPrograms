@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 public class SigsNote extends JFrame implements KeyListener, ActionListener {
 	
@@ -60,8 +61,8 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
         dropDownMenus.add(menu2);
         
         JMenu menu3 = new JMenu("Help");
-        JMenuItem itemhelp = new JMenuItem("Help (WIP)");
-        JMenuItem itemabout = new JMenuItem("About (WIP)");
+        JMenuItem itemhelp = new JMenuItem("Help");
+        JMenuItem itemabout = new JMenuItem("About");
         menu3.add(itemhelp);
         menu3.add(itemabout);
         dropDownMenus.add(menu3);
@@ -119,10 +120,12 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
         itemhelp.setBackground(Color.BLACK);
         itemhelp.setForeground(Color.ORANGE);
         itemhelp.setFont(ff);
+        itemhelp.addActionListener(this);
         
         itemabout.setBackground(Color.BLACK);
         itemabout.setForeground(Color.ORANGE);
         itemabout.setFont(ff);
+        itemabout.addActionListener(this);
         
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -159,6 +162,11 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
 		
 		StringSelection copyThisToClipboard = new StringSelection(textField.getText());
 		int textFieldLenght = textField.getText().length();
+		UIManager.put("OptionPane.background", Color.DARK_GRAY);
+		UIManager.put("Panel.background", Color.BLACK);
+		UIManager.put("OptionPane.messageForeground", Color.ORANGE);
+		UIManager.put("Button.background", Color.BLACK);
+		UIManager.put("Button.foreground", Color.ORANGE);
 		
 		switch (ee.getActionCommand()) {
 		case "Exit":
