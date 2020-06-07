@@ -36,7 +36,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     
     private JTextField numbersField; //This is the value of the text field
     private StringBuilder initialNumberField = new StringBuilder(); //The first calculations number
-    private StringBuilder additionalNumber = new StringBuilder(); //The second calculations number
+    private StringBuilder additionalNumber = new StringBuilder("0"); //The second calculations number
     //Flags made to let the program know what calculation is to be made when pressing "Equals"
     private boolean isItAddition = false;
     private boolean isItSubstraction = false;
@@ -369,26 +369,39 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     		   b = (JButton)o;
     			String buttonText = b.getText();
     		   
+    		// ----- COMPLEX CALCULATIONS WORK DIFFFERENTELY TO PYTHON EDITION, COMPERABLE TO WIN. CALC.
     		switch(b.getText()) {
     		 case "+":
-    			 additionalNumber.append(initialNumberField);
+    			 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+				 theResult = firstNumber+secondNumber;
+    			 additionalNumber.replace(0, 50, Float.toString(theResult));
     			 raze_it_to_the_ground();
     			 System.out.println(additionalNumber);
     			 isItAddition = true;
     			 break;
     		 case "-":
+				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+				 theResult = firstNumber-secondNumber;
     			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
     			 System.out.println(additionalNumber);
     			 isItSubstraction = true;
     			 break;
     		 case "*":
+				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+				 theResult = firstNumber*secondNumber;
     			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
     			 System.out.println(additionalNumber);
     			 isItMultiplacation = true;
     			 break;
     		 case "/":
+				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
+				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
+				 theResult = firstNumber/secondNumber;
     			 additionalNumber.append(initialNumberField);
     			 raze_it_to_the_ground();
     			 System.out.println(additionalNumber);
@@ -402,7 +415,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         			 System.out.println(theResult);
         		     initialNumberField.replace(0, 50, Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "");
+        			 additionalNumber.replace(0, 50, "0");
         			 isItAddition = false;
     			 } else if (isItSubstraction == true) {
     				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
@@ -411,7 +424,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         			 System.out.println(theResult);
         		     initialNumberField.replace(0, 50, Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "");
+        			 additionalNumber.replace(0, 50, "0");
         			 isItSubstraction = false;
     			 } else if (isItMultiplacation == true) {
     				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
@@ -420,7 +433,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         			 System.out.println(theResult);
         		     initialNumberField.replace(0, 50, Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "");
+        			 additionalNumber.replace(0, 50, "0");
         			 isItMultiplacation = false;
     			 } else if (isItDivision == true) {
     				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
@@ -429,7 +442,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         			 System.out.println(theResult);
         		     initialNumberField.replace(0, 50, Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "");
+        			 additionalNumber.replace(0, 50, "0");
         			 isItDivision = false;
     			 } else {
         			 System.out.println("Problem with the result.");
