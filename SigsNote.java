@@ -10,7 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Formatter;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -19,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SigsNote extends JFrame implements KeyListener, ActionListener {
 	
@@ -39,9 +47,9 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
         JMenuBar dropDownMenus = new JMenuBar();
         
         JMenu menu = new JMenu("File");
-        JMenuItem itemopen = new JMenuItem("Open (WIP)");
+        JMenuItem itemopen = new JMenuItem("Open");
         JMenuItem itemsave = new JMenuItem("Save (WIP)");
-        JMenuItem itemsaveas = new JMenuItem("Save as... (WIP)");
+        JMenuItem itemsaveas = new JMenuItem("Save as...");
         JMenuItem itemclose = new JMenuItem("Exit");
         menu.add(itemopen);
         menu.add(itemsave);
@@ -84,6 +92,7 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
         itemopen.setBackground(Color.BLACK);
         itemopen.setForeground(Color.ORANGE);
         itemopen.setFont(ff);
+        itemopen.addActionListener(this);
         
         itemsave.setBackground(Color.BLACK);
         itemsave.setForeground(Color.ORANGE);
@@ -92,6 +101,7 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
         itemsaveas.setBackground(Color.BLACK);
         itemsaveas.setForeground(Color.ORANGE);
         itemsaveas.setFont(ff);
+        itemsaveas.addActionListener(this);
         
         itemclose.setBackground(Color.BLACK);
         itemclose.setForeground(Color.ORANGE);
@@ -159,7 +169,7 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
 	//Drop down menus functionality
 	@Override
 	public void actionPerformed (ActionEvent ee) {
-		
+		JFrame saveOrOpenDialog = new JFrame();
 		StringSelection copyThisToClipboard = new StringSelection(textField.getText());
 		int textFieldLenght = textField.getText().length();
 		UIManager.put("OptionPane.background", Color.DARK_GRAY);
@@ -169,6 +179,46 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
 		UIManager.put("Button.foreground", Color.ORANGE);
 		
 		switch (ee.getActionCommand()) {
+		  //Same problems as in SigsCalc
+		  //----- SECURITY RISK ----- Possibility to open plain old text instead of numbers
+		  case "Open":
+			  JFileChooser openFile = new JFileChooser();
+			  openFile.setDialogTitle("Open saved text file");
+			  openFile.setDialogType(JFileChooser.OPEN_DIALOG);
+			  openFile.setFileFilter(new FileNameExtensionFilter("TXT Files", "txt"));
+			  openFile.setCurrentDirectory(new File(System.getProperty("user.home") +
+					  System.getProperty("file.separator") + "Desktop"));
+			  if (openFile.showOpenDialog(saveOrOpenDialog) == JFileChooser.APPROVE_OPTION) {
+				  try {
+					  String data = ""; 
+					  data = new String(Files.readAllBytes(Paths.get(openFile.getSelectedFile().getAbsolutePath()))); 
+					  //Scanner ff = new Scanner(new File(openFile.getSelectedFile().getAbsolutePath()));
+					  textField.append(data);
+					  //ff.close();
+				  } catch (Exception e) {
+					  System.out.println("Error while opening a file.");
+				  }
+			  }
+			  break;
+			  
+		  case "Save as...":
+			  JFileChooser saveNewFile = new JFileChooser();
+			  saveNewFile.setDialogTitle("Save Your Text To...");
+			  saveNewFile.setDialogType(JFileChooser.SAVE_DIALOG);
+			  saveNewFile.setSelectedFile(new File("Your Text.txt"));
+			  saveNewFile.setFileFilter(new FileNameExtensionFilter("TXT Files", "txt"));
+			  saveNewFile.setCurrentDirectory(new File(System.getProperty("user.home") +
+					  System.getProperty("file.separator") + "Desktop"));
+			  if (saveNewFile.showSaveDialog(saveOrOpenDialog) == JFileChooser.APPROVE_OPTION) {
+				  try { 
+					  Formatter f = new Formatter(saveNewFile.getSelectedFile().getAbsolutePath());
+					  f.format("%s", textField.getText());
+					  f.close();
+				  } catch (Exception eee) {
+					  System.out.println("Error while saving a file.");
+				  }
+			  }
+			  break;
 		case "Exit":
 			System.exit(0);
 			break;
