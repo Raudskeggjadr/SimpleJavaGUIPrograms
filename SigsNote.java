@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Formatter;
-import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -24,7 +23,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -192,9 +190,7 @@ public class SigsNote extends JFrame implements KeyListener, ActionListener {
 				  try {
 					  String data = ""; 
 					  data = new String(Files.readAllBytes(Paths.get(openFile.getSelectedFile().getAbsolutePath()))); 
-					  //Scanner ff = new Scanner(new File(openFile.getSelectedFile().getAbsolutePath()));
 					  textField.append(data);
-					  //ff.close();
 				  } catch (Exception e) {
 					  System.out.println("Error while opening a file.");
 				  }
