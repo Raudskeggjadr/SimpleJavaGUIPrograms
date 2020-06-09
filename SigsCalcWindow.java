@@ -33,6 +33,7 @@ import java.util.Formatter;
 public class SigsCalcWindow extends JFrame implements KeyListener {
 
     GridBagConstraints gbc = new GridBagConstraints();
+    Font ff = new Font("Helvetica", Font.PLAIN, 18);
     
     private JTextField numbersField; //This is the value of the text field
     private StringBuilder initialNumberField = new StringBuilder(); //The first calculations number
@@ -49,6 +50,13 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     	initialNumberField.replace(0, 50, "0");
 		numbersField.setText(initialNumberField.toString());
     	}
+    
+    public void dropDownMenuClass(JMenuItem ddmItem) {
+    	ddmItem.setBackground(Color.BLACK);
+    	ddmItem.setForeground(Color.ORANGE);
+    	ddmItem.setFont(ff);
+    	ddmItem.addActionListener(new CloseMouseClass());
+    }
 
     public SigsCalcWindow() {
 
@@ -61,7 +69,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         //Layout setting
         setLayout(new GridBagLayout());
 
-        //Drop down menus -----IN JAVA IT'S JUST CALLED MENU----- settings ----- THIS CODE IS ALSO TOO LONG
+        //Drop down menus -----IN JAVA IT'S JUST CALLED MENU----- settings -----
         JMenuBar dropDownMenus = new JMenuBar();
         MouseClass handler = new MouseClass();
         
@@ -92,7 +100,6 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         menu3.add(itemabout);
         dropDownMenus.add(menu3);
         
-        Font ff = new Font("Helvetica", Font.PLAIN, 18);
         dropDownMenus.setBackground(Color.BLACK);
         menu.setForeground(Color.ORANGE);
         menu.setBackground(Color.BLACK);
@@ -106,49 +113,19 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         menu3.setBackground(Color.BLACK);
         menu3.setFont(ff);
         
-        itemopen.setBackground(Color.BLACK);
-        itemopen.setForeground(Color.ORANGE);
-        itemopen.setFont(ff);
-        itemopen.addActionListener(new CloseMouseClass());
+        dropDownMenuClass(itemopen);
+        dropDownMenuClass(itemsaveas);
+        dropDownMenuClass(itemclose);
+        dropDownMenuClass(itemcopy);
+        dropDownMenuClass(itempaste);
+        dropDownMenuClass(itemclear);
+        dropDownMenuClass(itemhelp);
+        dropDownMenuClass(itemabout);
         
+        //Still a WIP
         itemsave.setBackground(Color.BLACK);
         itemsave.setForeground(Color.ORANGE);
         itemsave.setFont(ff);
-        
-        itemsaveas.setBackground(Color.BLACK);
-        itemsaveas.setForeground(Color.ORANGE);
-        itemsaveas.setFont(ff);
-        itemsaveas.addActionListener(new CloseMouseClass());
-        
-        itemclose.setBackground(Color.BLACK);
-        itemclose.setForeground(Color.ORANGE);
-        itemclose.setFont(ff);
-        itemclose.addActionListener(new CloseMouseClass());
-        
-        itemcopy.setBackground(Color.BLACK);
-        itemcopy.setForeground(Color.ORANGE);
-        itemcopy.setFont(ff);
-        itemcopy.addActionListener(new CloseMouseClass());
-        
-        itempaste.setBackground(Color.BLACK);
-        itempaste.setForeground(Color.ORANGE);
-        itempaste.setFont(ff);
-        itempaste.addActionListener(new CloseMouseClass());
-        
-        itemclear.setBackground(Color.BLACK);
-        itemclear.setForeground(Color.ORANGE);
-        itemclear.setFont(ff);
-        itemclear.addActionListener(new CloseMouseClass());
-        
-        itemhelp.setBackground(Color.BLACK);
-        itemhelp.setForeground(Color.ORANGE);
-        itemhelp.setFont(ff);
-        itemhelp.addActionListener(new CloseMouseClass());
-        
-        itemabout.setBackground(Color.BLACK);
-        itemabout.setForeground(Color.ORANGE);
-        itemabout.setFont(ff);
-        itemabout.addActionListener(new CloseMouseClass());
         
         gbc.gridx = 0;
         gbc.gridy = 0;
