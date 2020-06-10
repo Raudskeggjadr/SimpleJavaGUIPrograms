@@ -34,6 +34,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 
     GridBagConstraints gbc = new GridBagConstraints();
     Font ff = new Font("Helvetica", Font.PLAIN, 18);
+    Font f = new Font("Helvetica", Font.PLAIN, 56);
     
     private JTextField numbersField; //This is the value of the text field
     private StringBuilder initialNumberField = new StringBuilder(); //The first calculations number
@@ -43,6 +44,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     private boolean isItSubstraction = false;
     private boolean isItMultiplacation = false;
     private boolean isItDivision = false;
+    private MouseClass handler = new MouseClass();
     
     
     //Clear the number field method
@@ -56,6 +58,18 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     	ddmItem.setForeground(Color.ORANGE);
     	ddmItem.setFont(ff);
     	ddmItem.addActionListener(new CloseMouseClass());
+    }
+    
+    public void numberButtonsClass(JButton buttonitem, int a, int b, int c) {
+    	buttonitem.setForeground(Color.ORANGE);
+    	buttonitem.setBackground(Color.BLACK);
+    	buttonitem.setFont(f);
+        gbc.gridx = a;
+        gbc.gridy = b;
+        gbc.gridwidth = c;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(buttonitem, gbc);
+        buttonitem.addMouseListener(handler);
     }
 
     public SigsCalcWindow() {
@@ -71,7 +85,6 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
 
         //Drop down menus -----IN JAVA IT'S JUST CALLED MENU----- settings -----
         JMenuBar dropDownMenus = new JMenuBar();
-        MouseClass handler = new MouseClass();
         
         JMenu menu = new JMenu("File");
         JMenuItem itemopen = new JMenuItem("Open");
@@ -139,7 +152,6 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         String numberShown = initialNumberField.toString();
         numbersField = new JTextField(numberShown, 50);
         numbersField.addKeyListener(this);
-        Font f = new Font("Helvetica", Font.PLAIN, 56);
         numbersField.setForeground(Color.ORANGE);
         numbersField.setBackground(Color.BLACK);
         numbersField.setFont(f);
@@ -153,183 +165,55 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
         gbc.fill = GridBagConstraints.BOTH;
         add(numbersField, gbc);
 
-        //Number and equation buttons and their setting ----- CODE IS TOO LONG -----
+        //Number and equation buttons and their setting
         JButton button1 = new JButton("1");
-        button1.setForeground(Color.ORANGE);
-        button1.setBackground(Color.BLACK);
-        button1.setFont(f);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button1, gbc);
-        button1.addMouseListener(handler);
-
+        numberButtonsClass(button1, 0, 2, 1);
+        
         JButton button2 = new JButton("2");
-        button2.setForeground(Color.ORANGE);
-        button2.setBackground(Color.BLACK);
-        button2.setFont(f);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button2, gbc);
-        button2.addMouseListener(handler);
-
+        numberButtonsClass(button2, 1, 2, 1);
+        
         JButton button3 = new JButton("3");
-        button3.setForeground(Color.ORANGE);
-        button3.setBackground(Color.BLACK);
-        button3.setFont(f);
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button3, gbc);
-        button3.addMouseListener(handler);
-
+        numberButtonsClass(button3, 2, 2, 1);
+        
         JButton button4 = new JButton("4");
-        button4.setForeground(Color.ORANGE);
-        button4.setBackground(Color.BLACK);
-        button4.setFont(f);
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button4, gbc);
-        button4.addMouseListener(handler);
-
+        numberButtonsClass(button4, 0, 3, 1);
+        
         JButton button5 = new JButton("5");
-        button5.setForeground(Color.ORANGE);
-        button5.setBackground(Color.BLACK);
-        button5.setFont(f);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button5, gbc);
-        button5.addMouseListener(handler);
-
+        numberButtonsClass(button5, 1, 3, 1);
+        
         JButton button6 = new JButton("6");
-        button6.setForeground(Color.ORANGE);
-        button6.setBackground(Color.BLACK);
-        button6.setFont(f);
-        gbc.gridx = 2;
-        gbc.gridy = 3;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button6, gbc);
-        button6.addMouseListener(handler);
-
+        numberButtonsClass(button6, 2, 3, 1);
+        
         JButton button7 = new JButton("7");
-        button7.setForeground(Color.ORANGE);
-        button7.setBackground(Color.BLACK);
-        button7.setFont(f);
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button7, gbc);
-        button7.addMouseListener(handler);
-
+        numberButtonsClass(button7, 0, 4, 1);
+        
         JButton button8 = new JButton("8");
-        button8.setForeground(Color.ORANGE);
-        button8.setBackground(Color.BLACK);
-        button8.setFont(f);
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button8, gbc);
-        button8.addMouseListener(handler);
-
+        numberButtonsClass(button8, 1, 4, 1);
+        
         JButton button9 = new JButton("9");
-        button9.setForeground(Color.ORANGE);
-        button9.setBackground(Color.BLACK);
-        button9.setFont(f);
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button9, gbc);
-        button9.addMouseListener(handler);
-
+        numberButtonsClass(button9, 2, 4, 1);
+        
         JButton button0 = new JButton("0");
-        button0.setForeground(Color.ORANGE);
-        button0.setBackground(Color.BLACK);
-        button0.setFont(f);
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button0, gbc);
-        button0.addMouseListener(handler);
-
+        numberButtonsClass(button0, 1, 5, 1);
+        
         JButton buttonDot = new JButton(".");
-        buttonDot.setForeground(Color.ORANGE);
-        buttonDot.setBackground(Color.BLACK);
-        buttonDot.setFont(f);
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(buttonDot, gbc);
-        buttonDot.addMouseListener(handler);
-
+        numberButtonsClass(buttonDot, 0, 5, 1);
+        
         JButton buttonPlus = new JButton("+");
-        buttonPlus.setForeground(Color.ORANGE);
-        buttonPlus.setBackground(Color.BLACK);
-        buttonPlus.setFont(f);
-        gbc.gridx = 3;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(buttonPlus, gbc);
-        buttonPlus.addMouseListener(handler);
-
+        numberButtonsClass(buttonPlus, 3, 2, 1);
+        
         JButton buttonMinus = new JButton("-");
-        buttonMinus.setForeground(Color.ORANGE);
-        buttonMinus.setBackground(Color.BLACK);
-        buttonMinus.setFont(f);
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(buttonMinus, gbc);
-        buttonMinus.addMouseListener(handler);
-
+        numberButtonsClass(buttonMinus, 3, 3, 1);
+        
         JButton buttonMultiplication = new JButton("*");
-        buttonMultiplication.setForeground(Color.ORANGE);
-        buttonMultiplication.setBackground(Color.BLACK);
-        buttonMultiplication.setFont(f);
-        gbc.gridx = 3;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(buttonMultiplication, gbc);
-        buttonMultiplication.addMouseListener(handler);
-
+        numberButtonsClass(buttonMultiplication, 3, 4, 1);
+        
         JButton buttonDivision = new JButton("/");
-        buttonDivision.setForeground(Color.ORANGE);
-        buttonDivision.setBackground(Color.BLACK);
-        buttonDivision.setFont(f);
-        gbc.gridx = 3;
-        gbc.gridy = 5;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(buttonDivision, gbc);
-        buttonDivision.addMouseListener(handler);
-
+        numberButtonsClass(buttonDivision, 3, 5, 1);
+        
         JButton buttonEquals = new JButton("=");
-        buttonEquals.setForeground(Color.ORANGE);
-        buttonEquals.setBackground(Color.BLACK);
-        buttonEquals.setFont(f);
-        gbc.gridx = 2;
-        gbc.gridy = 5;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(buttonEquals, gbc);
-        buttonEquals.addMouseListener(handler);
-}
+        numberButtonsClass(buttonEquals, 2, 5, 1);
+        }
 
     //Buttons functionality
     private class MouseClass extends MouseAdapter{
