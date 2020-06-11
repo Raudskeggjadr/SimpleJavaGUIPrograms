@@ -49,7 +49,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     
     //Clear the number field method
     private void raze_it_to_the_ground() {
-    	initialNumberField.replace(0, 50, "0");
+    	initialNumberField.replace(0, initialNumberField.toString().length(), "0");
 		numbersField.setText(initialNumberField.toString());
     	}
     
@@ -232,16 +232,17 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     		   
     		// ----- COMPLEX CALCULATIONS WORK DIFFFERENTELY TO PYTHON EDITION, COMPERABLE TO WIN. CALC.
     		switch(b.getText()) {
-    		 case "+":
+    		 case "+": // Complex calculations work
     			 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
 				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
 				 theResult = firstNumber+secondNumber;
-    			 additionalNumber.replace(0, 50, Float.toString(theResult));
+    			 additionalNumber.replace(0, additionalNumber.toString().length(),
+    					 Float.toString(theResult));
     			 raze_it_to_the_ground();
     			 System.out.println(additionalNumber);
     			 isItAddition = true;
     			 break;
-    		 case "-":
+    		 case "-": // Complex calculations still don't work
 				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
 				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
 				 theResult = firstNumber-secondNumber;
@@ -250,7 +251,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     			 System.out.println(additionalNumber);
     			 isItSubstraction = true;
     			 break;
-    		 case "*":
+    		 case "*": // Complex calculations still don't work
 				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
 				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
 				 theResult = firstNumber*secondNumber;
@@ -259,7 +260,7 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     			 System.out.println(additionalNumber);
     			 isItMultiplacation = true;
     			 break;
-    		 case "/":
+    		 case "/": // Complex calculations still don't work
 				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
 				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
 				 theResult = firstNumber/secondNumber;
@@ -274,36 +275,40 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
     				 theResult = firstNumber+secondNumber;
         			 System.out.println(theResult);
-        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        		     initialNumberField.replace(0, initialNumberField.toString().length(),
+        		    		 Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "0");
+        			 additionalNumber.replace(0, additionalNumber.toString().length(), "0");
         			 isItAddition = false;
     			 } else if (isItSubstraction == true) {
     				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
     				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
     				 theResult = firstNumber-secondNumber;
         			 System.out.println(theResult);
-        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        		     initialNumberField.replace(0, initialNumberField.toString().length(),
+        		    		 Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "0");
+        			 additionalNumber.replace(0, additionalNumber.toString().length(), "0");
         			 isItSubstraction = false;
     			 } else if (isItMultiplacation == true) {
     				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
     				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
     				 theResult = firstNumber*secondNumber;
         			 System.out.println(theResult);
-        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        		     initialNumberField.replace(0, initialNumberField.toString().length(),
+        		    		 Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "0");
+        			 additionalNumber.replace(0, additionalNumber.toString().length(), "0");
         			 isItMultiplacation = false;
     			 } else if (isItDivision == true) {
     				 firstNumber = (Float.valueOf(additionalNumber.toString())).floatValue();
     				 secondNumber = (Float.valueOf(initialNumberField.toString())).floatValue();
     				 theResult = firstNumber/secondNumber;
         			 System.out.println(theResult);
-        		     initialNumberField.replace(0, 50, Float.toString(theResult));
+        		     initialNumberField.replace(0, initialNumberField.toString().length(),
+        		    		 Float.toString(theResult));
         			 numbersField.setText(initialNumberField.toString());
-        			 additionalNumber.replace(0, 50, "0");
+        			 additionalNumber.replace(0, additionalNumber.toString().length(), "0");
         			 isItDivision = false;
     			 } else {
         			 System.out.println("Problem with the result.");
@@ -388,8 +393,9 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     				  Transferable copyThisFromClipboard = clipBoardContent.getContents(null);
     				  if (copyThisFromClipboard.isDataFlavorSupported(DataFlavor.stringFlavor))
     					  if (initialNumberField.toString().equals("0"))
-    		    				initialNumberField.delete(0, 50);
-    		    			initialNumberField.append(copyThisFromClipboard.getTransferData(DataFlavor.stringFlavor));
+    		    				initialNumberField.delete(0, initialNumberField.toString().length());
+    		    			initialNumberField.append
+    		    			(copyThisFromClipboard.getTransferData(DataFlavor.stringFlavor));
     		    			numbersField.setText(initialNumberField.toString());
     			  }
     				  catch (UnsupportedFlavorException | IOException ex) {
@@ -400,10 +406,12 @@ public class SigsCalcWindow extends JFrame implements KeyListener {
     			  raze_it_to_the_ground();
     			  break;
     		  case "Help":
-    			  JOptionPane.showMessageDialog(null, "This is a help screen.", "Help", JOptionPane.PLAIN_MESSAGE);
+    			  JOptionPane.showMessageDialog(null, "This is a help screen.",
+    					  "Help", JOptionPane.PLAIN_MESSAGE);
     			  break;
     		  case "About":
-    			  JOptionPane.showMessageDialog(null, "Calculator created by Zygmunt Mocek.", "About", JOptionPane.PLAIN_MESSAGE);
+    			  JOptionPane.showMessageDialog(null, "Calculator created by Zygmunt Mocek.",
+    					  "About", JOptionPane.PLAIN_MESSAGE);
     			  break;
     		  default:
     			  System.out.println("Unexpected (drop down menus)");
